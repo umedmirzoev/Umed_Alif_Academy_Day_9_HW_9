@@ -32,46 +32,43 @@ public class Program
 
     private static void CreateClient()
     {
-        Console.WriteLine("Enter the First Name of the client:");
-        string firstName = Console.ReadLine().Trim();
-
-        Console.WriteLine("Enter the Last Name of the client:");
-        string lastName = Console.ReadLine().Trim();
-
-        Console.WriteLine("Enter the Email of the client:");
-        string email = Console.ReadLine().Trim();
-
-        var clientInfo = new ClientInfo(firstName, lastName, email);
-
-        if (clientInfo.FirstName is { Length: 0 })
+        try
         {
-            Console.WriteLine("Invalid client information. First Name is required.");
-        }
-        else if (clientInfo.LastName is { Length: 0 })
-        {
-            Console.WriteLine("Invalid client information. Last Name is required.");
-        }
-        else{
+            Console.WriteLine("Enter the First Name of the client:");
+            string firstName = Console.ReadLine().Trim();
+
+            Console.WriteLine("Enter the Last Name of the client:");
+            string lastName = Console.ReadLine().Trim();
+
+            Console.WriteLine("Enter the Email of the client:");
+            string email = Console.ReadLine().Trim();
+
+            var clientInfo = new ClientInfo(firstName, lastName, email);
+
             // Save the client to CRM 
             Console.WriteLine("Client created successfully!");
+        }
+        catch (ArgumentException ex)
+        {
+            Console.WriteLine($"Invalid client information: {ex.Message }");
         }
     }
 
     private static void CreateOrder()
     {
-        Console.WriteLine("Enter the Order Number:");
-        string orderNumber = Console.ReadLine().Trim();
-
-        var orderInfo = new OrderInfo(orderNumber, DateTime.Now);
-
-        if (orderInfo.OrderNumber is { Length: 0})
+        try
         {
-            Console.WriteLine("Invalid order information. Order Number is required.");
-        }
-        else
-        {
+            Console.WriteLine("Enter the Order Number:");
+            string orderNumber = Console.ReadLine().Trim();
+
+            var orderInfo = new OrderInfo(orderNumber, DateTime.Now);
+
             // Save the order to CRM
             Console.WriteLine("Order created successfully!");
+        }
+        catch (ArgumentException ex)
+        {
+            Console.WriteLine($"Invalid order information: {ex.Message}");
         }
     }
 }
